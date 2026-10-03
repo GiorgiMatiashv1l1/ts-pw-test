@@ -6,8 +6,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 2 : undefined,
-  reporter: [['html', {open: 'never'}]],
-  use: {
+  reporter: [['list'], ['html', { open: 'never' }]],  use: {
     baseURL: '',
     testIdAttribute: 'data-test',
     trace: 'on-first-retry'
