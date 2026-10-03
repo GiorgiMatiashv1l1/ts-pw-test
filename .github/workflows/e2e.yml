@@ -17,6 +17,26 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm test
+      - name: Zip report
+        if: ${{ !cancelled() }}
+        run: zip -r report.zip playwright-report
+
+      - name: Email Report
+        if: ${{ !cancelled() }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: '465'
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD}}
+          subject: "Playwright run: ${{ job.status }}"
+          from: Playwright CI
+          body: |
+            Result: ${{ job.status }}
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          attachments: report.zip
+
       - uses: actions/upload-artifact@4
         if: ${{ !cancelled() }}
         with:
