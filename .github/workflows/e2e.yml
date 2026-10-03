@@ -19,7 +19,7 @@ jobs:
       - run: npm test
       - name: Zip report
         if: ${{ !cancelled() }}
-        run: zip -r report.zip playwright-report
+        run: zip -r report.zip playwright-report -x "*.zip"
 
       - name: Email Report
         if: ${{ !cancelled() }}
