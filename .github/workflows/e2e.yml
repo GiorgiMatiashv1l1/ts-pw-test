@@ -32,6 +32,7 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD}}
           subject: "Playwright run: ${{ job.status }}"
           from: Playwright CI
+          to: ${{ secrets.MAIL_USERNAME }}
           body: |
             Result: ${{ job.status }}
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
