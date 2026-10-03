@@ -1,7 +1,7 @@
 name: e2e.yml
 on:
   schedule:
-    - cron: '0 14 * * 1-5'
+    - cron: '0 14 * * *' #18:00 in our time
   workflow_dispatch:
 
 jobs:
