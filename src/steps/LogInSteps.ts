@@ -28,4 +28,10 @@ export class LogInSteps {
         
         return this;
     }
+
+    async verifyErrorShown(): Promise<this>{
+        await expect(this.loginPage.errorMessage).toBeVisible();
+
+        return this;
+    }
 }
