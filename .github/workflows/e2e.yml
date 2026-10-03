@@ -17,10 +17,11 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm test
+      - run: npm test 2>&1 | tee test-output.txt
+
       - name: Zip report
         if: ${{ !cancelled() }}
         run: zip -r report.zip playwright-report -x "*.zip"
-
       - name: Email Report
         if: ${{ !cancelled() }}
         uses: dawidd6/action-send-mail@v3
@@ -36,7 +37,7 @@ jobs:
           body: |
             Result: ${{ job.status }}
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          attachments: report.zip
+          attachments: report.zip, report.zip,test-output.txt
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
